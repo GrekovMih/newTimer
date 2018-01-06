@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        html, body, .my-flex-container {
+            height: 100%;
+        }
+        * {
+            margin: 0;
+        }
+
+
+
+        .my-flex-container{
+            display: flex;
+            justify-content: space-around;
+            align-items:  center;
+            flex-wrap: wrap;
+        }
+
+
+        @media screen and (orientation:portrait) {
+            .my-flex-container {
+                flex-direction: column;
+            }
+        }
+        svg {
+            transform: rotate(-90deg);
+            transition: stroke-dashoffset 1s linear;
+            animation: rotate 2s linear infinite;
+
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+ <div class="my-flex-container">
+
+    <div id="circleMinute" class="my-flex-block">
+        <div id="min"></div>
+    </div>
+
+    <div id="circleSecond" class="my-flex-block">
+        <div id="sec"></div>
+    </div>
+    <div id="circleRound" class="my-flex-block">
+        <div id="round"></div>
+    </div>
+
+  </div>
+
+
+
+
+
+<script type="application/javascript">
+
+
+
+function drawCircle(id) {
+    var time="time"+id;
+
+    document.getElementById(id).innerHTML = "           <svg class='progress' width='140' height='140'>" +
+            " <circle r='65' cx='70' cy='70' " +
+            "fill='none' stroke='#efefec' stroke-width='10'/>" +
+            "        <circle r='65' cx='70' cy='70'" +
+            " fill='none' stroke='#ffdf3b' stroke-width='10' " +
+
+
+            "    <div id=time></div>    </svg> "
+
+
+
+    ;
+
+}
+
+function setValueCircle(id, value) {
+    var second = value;
+
+    var elementDiv = document.getElementById(id);
+    console.log(elementDiv);
+    var elementSVG = elementDiv.lastElementChild;
+    console.log(elementSVG);
+    var circle = elementSVG.children[1];
+    console.log(circle);
+    var circleRadius = parseInt(circle.getAttribute("r"), 10);
+    console.log(circleRadius);
+    var circleLength = 2 * Math.PI * circleRadius;
+    console.log(circleLength);
+
+    circle.style.strokeDasharray = circleLength;
+    sec = function draw(){
+        var offset = 1 - second / 60;
+        circle.style.strokeDashoffset = circleLength * offset;
+        console.log(second);
+        var time="time"+id;
+        document.getElementById(time).innerHTML = second;
+        return --second;
+
+    };
+    setInterval( sec , 1000);
+
+}
+
+function stop (){
+
+    
+}
+
+
+drawCircle("circleMinute");
+drawCircle("circleSecond");
+drawCircle("circleRound");
+
+setValueCircle("circleSecond", 60);
+
+//setValueCircle("circleSecond", 60);
+
+
+/*
+var sec = function(){
+    var second = 0;
+    return function(){
+        ++second;
+        console.log(second);
+
+
+        return second;
+    }
+}();
+
+
+
+setInterval( sec , 1000);
+
+*/
+
+</script>
+
+</body>
+</html>
