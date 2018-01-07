@@ -153,9 +153,10 @@
         drawValue("circleRound", round);
         drawValue("circleMinute", minute);
 
-        document.getElementById("min").innerHTML = minute;
-        document.getElementById("sec").innerHTML = second;
-        document.getElementById("round").innerHTML = round;
+        document.getElementById("min").innerHTML = minute + " m ";
+        document.getElementById("sec").innerHTML = second + " s ";
+        document.getElementById("round").innerHTML = round + "round";
+
 
         sec = function draw() {
             var offset = 1 - second / 60;
@@ -168,10 +169,12 @@
             else {
                 if (minute > 0) {
                     minute--;
-                    document.getElementById("min").innerHTML = minute;
+                    document.getElementById("min").innerHTML = minute + "m";
                     second = 60;
                     drawValue("circleMinute", minute);
                 } else {
+                    sound();
+
 
                     if (round>0){
                         if (status === "Fight!") {
@@ -183,6 +186,8 @@
                             minute =  minuteFight,
                             second =  secondFight,
                             round--;
+                            document.getElementById("min").innerHTML = minute + "m";
+
                             status = "Fight!";
 
                         }
