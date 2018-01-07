@@ -134,15 +134,19 @@
     function setValueCircle(id, value) {
         // var second = value;
 
-        var minute = 2;
-
-        var second = 30;
-
-        var round = 3;
+        var minuteFight = 2;
+        var secondFight = 30;
+        var roundFight = 3;
+        var status = "Fight!";
 
 
         var minuteRelax = 1;
         var secondRelax = 0;
+
+        var
+        minute =  minuteFight,
+        second =  secondFight,
+        round = roundFight;
 
         var circle = drawValue(id, second);
 
@@ -167,8 +171,28 @@
                     document.getElementById("min").innerHTML = minute;
                     second = 60;
                     drawValue("circleMinute", minute);
-                } else
+                } else {
+
+                    if (round>0){
+                        if (status === "Fight!") {
+                            minute = minuteRelax;
+                            second = secondRelax;
+                            status = "relax";
+                        }else{
+
+                            minute =  minuteFight,
+                            second =  secondFight,
+                            round--;
+                            status = "Fight!";
+
+                        }
+
+                    }else
+
                     stop();
+
+
+                }
 
             }
 
